@@ -80,7 +80,7 @@ router.get("/user/:id", async (req, res) => {
     try {
         const { data, error } = await supabaseAdmin
             .from("profiles")
-            .select("name")
+            .select("*") // Busca todas as colunas
             .eq("id", id)
             .single();
 
