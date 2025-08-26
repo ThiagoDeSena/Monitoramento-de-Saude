@@ -19,9 +19,11 @@ app.use(express.static(path.join(__dirname, "../Frontend")));
 // Rotas
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
+const healthRoutes = require('./routes/glicemia');
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use('/health', healthRoutes);
 
 // Rota para exibir o login.html
 app.get("/", (req, res) => {
