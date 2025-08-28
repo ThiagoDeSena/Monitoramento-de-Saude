@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "../Frontend")));
 // Rotas
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
-const healthRoutes = require('./routes/glicemia');
+const healthRoutes = require('./routes/sinaisVitais');
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
