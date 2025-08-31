@@ -129,23 +129,12 @@
 
                 </div>
             </section>
-            <!-- ALERTAS DE SAÚDES - AVISAR SE ALGUM DOS SINTOMAS ESTAR ALTERADO-->
-            <section class="mb-6 rounded-2xl bg-[var(--red-alert)] p-4 text-white shadow-sm">
-                <div class="flex items-center gap-3">
-                    <div data-icon="WarningCircle" data-size="32px" data-weight="fill">
-                        <svg fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold">Alerta de Saúde</h3>
-                        <p class="text-sm">Glicemia elevada: 140 mg/dL</p>
-                    </div>
-                </div>
+
+            <!-- ALERTAS DE SAÚDE - Dinâmico baseado nos dados do usuário -->
+            <section class="health-alert-section" style="display: none;">
+                <!-- O conteúdo será inserido dinamicamente pelo JavaScript dentro de divs separadas -->
             </section>
+
             <section class="mb-6">
                 <h2 class="mb-4 text-xl font-bold text-[var(--primary-color)]">Resumo do Dia</h2>
                 <div id="daily-summary-container" class="space-y-3">

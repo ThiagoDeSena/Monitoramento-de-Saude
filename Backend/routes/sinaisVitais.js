@@ -353,34 +353,68 @@ router.get("/daily-summary", async (req, res) => {
             // --- Classificação da pressão arterial ---
             // A ordem das verificações é importante, começamos do mais alto para o mais baixo.
 
-            if (systolic >= 140 || diastolic >= 90) {
-                // Engloba todos os estágios de Hipertensão
-                // Para uma versão mais detalhada, você poderia quebrar em Estágio 1, 2 e 3
-                pressureStatus = "Hipertensão (Alta)";
+            // if (systolic >= 140 || diastolic >= 90) {
+            //     // Engloba todos os estágios de Hipertensão
+            //     // Para uma versão mais detalhada, você poderia quebrar em Estágio 1, 2 e 3
+            //     pressureStatus = "Hipertensão (Alta)";
+            //     pressureColor = "red"; // Risco alto
+
+            // } else if (systolic >= 130 || diastolic >= 85) {
+            //     // Corresponde à Pré-Hipertensão, que é o termo correto para "Limítrofe"
+            //     pressureStatus = "Pré-hipertensão";
+            //     pressureColor = "yellow"; // Atenção
+
+            // } else if (systolic < 90 || diastolic < 60) {
+            //     // A verificação de pressão baixa está correta
+            //     pressureStatus = "Hipotensão (Baixa)";
+            //     pressureColor = "lightblue"; // Informativo, não necessariamente um risco
+
+            // } else {
+            //     // Se não caiu em nenhuma das condições acima, a pressão está na faixa normal/ótima.
+            //     // Podemos detalhar ainda mais aqui:
+            //     if (systolic < 120 && diastolic < 80) {
+            //         pressureStatus = "Ótima";
+            //         pressureColor = "green"; // Ideal
+            //     } else {
+            //         // Cobre a faixa "Normal" que vai até 129/84 mmHg
+            //         pressureStatus = "Normal";
+            //         pressureColor = "lightgreen"; // Saudável
+            //     }
+            // }
+
+            // --- Classificação da pressão arterial ---
+            // A ordem das verificações é importante: da mais grave para a mais leve.
+
+            if (systolic >= 180 || diastolic >= 110) {
+                pressureStatus = "Hipertensão Estágio 3 (Muito Alta)";
+                pressureColor = "darkred"; // Risco muito alto
+
+            } else if ((systolic >= 160 && systolic <= 179) || (diastolic >= 100 && diastolic <= 109)) {
+                pressureStatus = "Hipertensão Estágio 2";
                 pressureColor = "red"; // Risco alto
 
-            } else if (systolic >= 130 || diastolic >= 85) {
-                // Corresponde à Pré-Hipertensão, que é o termo correto para "Limítrofe"
-                pressureStatus = "Pré-hipertensão";
+            } else if ((systolic >= 140 && systolic <= 159) || (diastolic >= 90 && diastolic <= 99)) {
+                pressureStatus = "Hipertensão Estágio 1";
+                pressureColor = "orangered"; // Alerta
+
+            } else if ((systolic >= 130 && systolic <= 139) || (diastolic >= 85 && diastolic <= 89)) {
+                pressureStatus = "Normal-alta (Pré-hipertensão)";
                 pressureColor = "yellow"; // Atenção
 
+            } else if ((systolic >= 120 && systolic <= 129) || (diastolic >= 80 && diastolic <= 84)) {
+                pressureStatus = "Normal";
+                pressureColor = "lightgreen"; // Saudável
+
             } else if (systolic < 90 || diastolic < 60) {
-                // A verificação de pressão baixa está correta
                 pressureStatus = "Hipotensão (Baixa)";
-                pressureColor = "lightblue"; // Informativo, não necessariamente um risco
+                pressureColor = "lightblue"; // Informativo, avaliar caso a caso
 
             } else {
-                // Se não caiu em nenhuma das condições acima, a pressão está na faixa normal/ótima.
-                // Podemos detalhar ainda mais aqui:
-                if (systolic < 120 && diastolic < 80) {
-                    pressureStatus = "Ótima";
-                    pressureColor = "green"; // Ideal
-                } else {
-                    // Cobre a faixa "Normal" que vai até 129/84 mmHg
-                    pressureStatus = "Normal";
-                    pressureColor = "lightgreen"; // Saudável
-                }
+                // Caso não se encaixe em nenhuma das condições acima, é "Ótima"
+                pressureStatus = "Ótima";
+                pressureColor = "green"; // Ideal
             }
+
 
             result.bloodPressure = {
                 systolic: systolic,
