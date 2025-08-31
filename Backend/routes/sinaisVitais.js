@@ -273,4 +273,133 @@ router.post("/symptoms", async (req, res) => {
 });
 
 
+// Rota para buscar resumo do dia atual
+router.get("/daily-summary", async (req, res) => {
+    const { user_id, date } = req.query;
+
+    if (!user_id || !date) {
+        return res.status(400).json({
+            success: false,
+            message: "user_id e date são obrigatórios"
+        });
+    }
+
+    try {
+        const { data, error } = await supabaseAdmin
+            .from("health_records")
+            .select("glucose, blood_pressure_systolic, blood_pressure_diastolic")
+            .eq("user_id", user_id)
+            .eq("date", date)
+            .single();
+
+        if (error && error.code !== 'PGRST116') {
+            return res.status(400).json({ success: false, message: error.message });
+        }
+
+        // Se não encontrou registro
+        if (!data) {
+            return res.json({
+                success: true,
+                hasData: false,
+                glucose: null,
+                bloodPressure: null
+            });
+        }
+
+        // Preparar dados de resposta
+        const result = {
+            success: true,
+            hasData: true,
+            glucose: null,
+            bloodPressure: null
+        };
+
+        // Verificar e processar dados de glicemia
+        if (data.glucose !== null) {
+            const glucoseValue = data.glucose;
+            let glucoseStatus = "Normal";
+            let glucoseColor = "green";
+
+            // Classificação da glicemia (mg/dL) em jejum
+            if (glucoseValue < 70) {
+                glucoseStatus = "Hipoglicemia (Baixa)";
+                glucoseColor = "red";
+            } else if (glucoseValue >= 70 && glucoseValue < 100) {
+                glucoseStatus = "Normal";
+                glucoseColor = "green";
+            } else if (glucoseValue >= 100 && glucoseValue <= 125) {
+                glucoseStatus = "Pré-diabetes";
+                glucoseColor = "orange";
+            } else { // Valores >= 126
+                glucoseStatus = "Diabetes (Alta)";
+                glucoseColor = "red";
+            }
+
+            result.glucose = {
+                value: glucoseValue,
+                status: glucoseStatus,
+                color: glucoseColor,
+                display: `${glucoseValue} mg/dL`
+            };
+        }
+
+        // Verificar e processar dados de pressão arterial
+        if (data.blood_pressure_systolic !== null && data.blood_pressure_diastolic !== null) {
+            const systolic = data.blood_pressure_systolic;
+            const diastolic = data.blood_pressure_diastolic;
+            let pressureStatus = "Normal";
+            let pressureColor = "green";
+
+            // --- Classificação da pressão arterial ---
+            // A ordem das verificações é importante, começamos do mais alto para o mais baixo.
+
+            if (systolic >= 140 || diastolic >= 90) {
+                // Engloba todos os estágios de Hipertensão
+                // Para uma versão mais detalhada, você poderia quebrar em Estágio 1, 2 e 3
+                pressureStatus = "Hipertensão (Alta)";
+                pressureColor = "red"; // Risco alto
+
+            } else if (systolic >= 130 || diastolic >= 85) {
+                // Corresponde à Pré-Hipertensão, que é o termo correto para "Limítrofe"
+                pressureStatus = "Pré-hipertensão";
+                pressureColor = "yellow"; // Atenção
+
+            } else if (systolic < 90 || diastolic < 60) {
+                // A verificação de pressão baixa está correta
+                pressureStatus = "Hipotensão (Baixa)";
+                pressureColor = "lightblue"; // Informativo, não necessariamente um risco
+
+            } else {
+                // Se não caiu em nenhuma das condições acima, a pressão está na faixa normal/ótima.
+                // Podemos detalhar ainda mais aqui:
+                if (systolic < 120 && diastolic < 80) {
+                    pressureStatus = "Ótima";
+                    pressureColor = "green"; // Ideal
+                } else {
+                    // Cobre a faixa "Normal" que vai até 129/84 mmHg
+                    pressureStatus = "Normal";
+                    pressureColor = "lightgreen"; // Saudável
+                }
+            }
+
+            result.bloodPressure = {
+                systolic: systolic,
+                diastolic: diastolic,
+                status: pressureStatus,
+                color: pressureColor,
+                display: `${systolic}/${diastolic}`
+            };
+        }
+
+        return res.json(result);
+
+    } catch (err) {
+        console.error("Erro ao buscar resumo diário:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Erro interno do servidor"
+        });
+    }
+});
+
 module.exports = router;
