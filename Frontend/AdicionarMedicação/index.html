@@ -59,19 +59,78 @@
                         <input class="form-input w-full" id="time" name="time" type="time" />
                     </div>
                 </div>
+
+                <!-- seletor de dias da semana estilo alarme de celular -->
+                <fieldset class="mt-6">
+                    <label class="form-label block text-sm font-medium mb-1" for="week">Dias da semana</label>
+                    <div class="flex justify-between items-center gap-2">
+                        <label>
+                            <input type="checkbox" name="days" value="sun" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                D
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="mon" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                S
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="tue" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                T
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="wed" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                Q
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="thu" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                Q
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="fri" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                S
+                            </span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="days" value="sat" class="sr-only peer">
+                            <span
+                                class="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-sm font-medium peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition">
+                                S
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
                 <div>
                     <label class="form-label block text-sm font-medium mb-1" for="description">Descrição
                         (opcional)</label>
                     <textarea class="form-input w-full" id="description" name="description"
                         placeholder="Ex: Tomar com um copo de água." rows="4"></textarea>
                 </div>
+
+                <!-- Botão de Salvar Lembrete -->
                 <div class="fixed bottom-0 left-0 right-0 p-4 bg-white max-w-sm mx-auto">
-                    <button id="save-button"
-                        class="btn-primary w-full text-white font-bold py-4 px-4 rounded-lg text-lg shadow-lg hover:bg-blue-800 transition-colors duration-300"
-                        type="submit">
+                    <button id="save-button" type="submit"
+                        class="w-full rounded-lg bg-[var(--green)] py-4 text-center text-lg font-bold text-[var(--white-color)] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                         Salvar Lembrete
                     </button>
                 </div>
+
             </form>
         </main>
     </div>

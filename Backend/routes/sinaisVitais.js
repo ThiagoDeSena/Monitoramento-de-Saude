@@ -351,40 +351,7 @@ router.get("/daily-summary", async (req, res) => {
             let pressureColor = "green";
 
             // --- Classificação da pressão arterial ---
-            // A ordem das verificações é importante, começamos do mais alto para o mais baixo.
-
-            // if (systolic >= 140 || diastolic >= 90) {
-            //     // Engloba todos os estágios de Hipertensão
-            //     // Para uma versão mais detalhada, você poderia quebrar em Estágio 1, 2 e 3
-            //     pressureStatus = "Hipertensão (Alta)";
-            //     pressureColor = "red"; // Risco alto
-
-            // } else if (systolic >= 130 || diastolic >= 85) {
-            //     // Corresponde à Pré-Hipertensão, que é o termo correto para "Limítrofe"
-            //     pressureStatus = "Pré-hipertensão";
-            //     pressureColor = "yellow"; // Atenção
-
-            // } else if (systolic < 90 || diastolic < 60) {
-            //     // A verificação de pressão baixa está correta
-            //     pressureStatus = "Hipotensão (Baixa)";
-            //     pressureColor = "lightblue"; // Informativo, não necessariamente um risco
-
-            // } else {
-            //     // Se não caiu em nenhuma das condições acima, a pressão está na faixa normal/ótima.
-            //     // Podemos detalhar ainda mais aqui:
-            //     if (systolic < 120 && diastolic < 80) {
-            //         pressureStatus = "Ótima";
-            //         pressureColor = "green"; // Ideal
-            //     } else {
-            //         // Cobre a faixa "Normal" que vai até 129/84 mmHg
-            //         pressureStatus = "Normal";
-            //         pressureColor = "lightgreen"; // Saudável
-            //     }
-            // }
-
-            // --- Classificação da pressão arterial ---
             // A ordem das verificações é importante: da mais grave para a mais leve.
-
             if (systolic >= 180 || diastolic >= 110) {
                 pressureStatus = "Hipertensão Estágio 3 (Muito Alta)";
                 pressureColor = "darkred"; // Risco muito alto

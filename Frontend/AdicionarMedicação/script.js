@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function showToast(el, ms = 2000) {
         // mostrar
         el.classList.remove("hidden");
-        // small delay to allow transition
         requestAnimationFrame(() => {
             el.classList.remove("opacity-0", "scale-95");
             el.classList.add("opacity-100", "scale-100");
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
             el.classList.remove("opacity-100", "scale-100");
             el.classList.add("opacity-0", "scale-95");
             el.setAttribute("aria-hidden", "true");
-            // depois da animação, adiciona hidden
             setTimeout(() => el.classList.add("hidden"), 200);
         }, ms);
     }
@@ -32,8 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const unit = document.getElementById("unit").value.trim();
         const time = document.getElementById("time").value.trim();
 
+        // pega os dias selecionados
+        const selectedDays = Array.from(document.querySelectorAll('input[name="days"]:checked'))
+            .map(input => input.value);
+
         // validação (description é opcional)
-        if (!name || !quantity || !unit || !time) {
+        if (!name || !quantity || !unit || !time || selectedDays.length === 0) {
             showToast(toastError, 2000);
             return;
         }
@@ -48,8 +50,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // simula delay de salvamento e redireciona após 2s
         setTimeout(() => {
             // aqui você chamaria sua API / salvar no banco
-            // depois redireciona pra tela inicial
-            window.location.href = "../Tela Inicial/index.html";
+            console.log({
+                name,
+                quantity,
+                unit,
+                time,
+                days: selectedDays
+            });
+
+            window.location.href = "../TelaInicial/index.html";
         }, 2000);
     });
 });
