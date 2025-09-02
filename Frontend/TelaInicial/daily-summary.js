@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para criar card sem dados
     function createNoDataCard(title, message) {
         return `
-            <div class="flex items-center justify-between rounded-2xl bg-gray-50 p-4 border border-gray-200 shadow-sm opacity-60" style="min-height: 72px;">
+            <div class="flex items-center justify-between rounded-2xl bg-gray-50 p-4 border border-gray-200 shadow-sm" style="min-height: 72px;">
                 <div class="flex items-center gap-4">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-400">
                         ${getNoDataIcon()}

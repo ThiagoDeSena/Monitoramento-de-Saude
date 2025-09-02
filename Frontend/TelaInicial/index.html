@@ -48,7 +48,59 @@
             </h3>
 
             <section class="mb-6">
-                <div
+                <!-- Container para os medicamentos de hoje -->
+                <div id="medications-container" class="space-y-4">
+                    <!-- Loading state -->
+                    <div id="medications-loading" class="flex items-center justify-center p-8">
+                        <div class="flex items-center gap-3 text-[var(--dark-gray)]">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-[var(--primary-color)]">
+                            </div>
+                            <span>Carregando medicamentos...</span>
+                        </div>
+                    </div>
+
+                    <!-- Container dinâmico onde os medicamentos serão inseridos -->
+                    <div id="medications-list" class="space-y-4 hidden">
+                        <!-- Os medicamentos serão inseridos aqui dinamicamente -->
+                    </div>
+
+                    <!-- Estado vazio -->
+                    <div id="medications-empty" class="hidden text-center p-8">
+                        <div class="text-[var(--dark-gray)] space-y-2">
+                            <p class="text-lg font-semibold">Nenhum medicamento para hoje</p>
+                            <p class="text-sm">Você não tem medicamentos agendados para hoje.</p>
+                        </div>
+                    </div>
+
+                    <!-- Estado de erro -->
+                    <div id="medications-error" class="hidden text-center p-8">
+                        <div class="text-red-500 space-y-2">
+                            <p class="text-lg font-semibold">Erro ao carregar medicamentos</p>
+                            <p class="text-sm">Tente novamente em alguns instantes.</p>
+                            <button id="retry-medications"
+                                class="mt-4 px-4 py-2 bg-[var(--primary-color)] text-white rounded-lg hover:opacity-90 transition-opacity">
+                                Tentar novamente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template para item de medicamento (será clonado via JS) -->
+                <template id="medication-item-template">
+                    <div
+                        class="flex items-center justify-between gap-4 mb-4 rounded-2xl bg-white border border-gray-200 p-4 shadow-md medication-item">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-base font-bold text-[var(--primary-color)] medication-name"></p>
+                            <p class="text-sm text-[var(--dark-gray)] medication-time"></p>
+                        </div>
+                        <button
+                            class="confirm-medication-btn flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg bg-[var(--green-accent)] px-4 py-3 text-base font-bold text-[var(--secondary-color)] hover:opacity-90 transition-opacity"
+                            style="height: 48px;">
+                            <span>Confirmar</span>
+                        </button>
+                    </div>
+                </template>
+                <!-- <div
                     class="flex items-center justify-between gap-4 mb-4 rounded-2xl bg-white border border-gray-200 p-4 shadow-md">
                     <div class="flex flex-col gap-1">
                         <p class="text-base font-bold text-[var(--primary-color)]">Metformina 500mg</p>
@@ -59,7 +111,7 @@
                         style="height: 48px;">
                         <span>Confirmar</span>
                     </button>
-                </div>
+                </div> -->
 
                 <!-- Botão de adicionar nova consulta -->
                 <a href="../AdicionarMedicação/index.html">
@@ -227,8 +279,10 @@
             </nav>
         </div>
     </div>
+    <script src="medications_today.js"></script>
     <script src="daily-summary.js"></script>
     <script src="script.js"></script>
+
 </body>
 
 </html>
