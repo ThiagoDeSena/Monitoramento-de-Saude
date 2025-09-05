@@ -253,7 +253,79 @@ router.get("/reminders/:user_id", async (req, res) => {
 });
 
 
-// Rota para buscar lembretes de hoje por usuário
+// Rota para marcar medicamento como tomado
+router.post("/taken", async (req, res) => {
+    const { user_id, medication_reminder_id } = req.body;
+
+    if (!user_id || !medication_reminder_id) {
+        return res.status(400).json({
+            success: false,
+            message: "user_id e medication_reminder_id são obrigatórios"
+        });
+    }
+
+    try {
+        console.log(`=== MARCANDO MEDICAMENTO COMO TOMADO ===`);
+        console.log("User ID:", user_id);
+        console.log("Medication Reminder ID:", medication_reminder_id);
+
+        // Data de hoje no formato YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+
+        // Verificar se já foi marcado como tomado hoje
+        const { data: alreadyTaken } = await supabaseAdmin
+            .from("medication_taken")
+            .select("id")
+            .eq("user_id", user_id)
+            .eq("medication_reminder_id", medication_reminder_id)
+            .eq("taken_date", today)
+            .single();
+
+        if (alreadyTaken) {
+            return res.json({
+                success: true,
+                message: "Medicamento já foi marcado como tomado hoje",
+                already_taken: true
+            });
+        }
+
+        // Inserir registro de medicamento tomado
+        const { data, error } = await supabaseAdmin
+            .from("medication_taken")
+            .insert([{
+                user_id,
+                medication_reminder_id,
+                taken_date: today,
+                taken_at: new Date().toISOString()
+            }])
+            .select();
+
+        if (error) {
+            console.error("Erro ao marcar medicamento como tomado:", error);
+            return res.status(400).json({
+                success: false,
+                message: "Erro ao salvar: " + error.message
+            });
+        }
+
+        console.log("✅ Medicamento marcado como tomado com sucesso");
+
+        return res.json({
+            success: true,
+            message: "Medicamento marcado como tomado!",
+            data: data[0]
+        });
+
+    } catch (err) {
+        console.error("Erro interno:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Erro interno do servidor"
+        });
+    }
+});
+
+// Rota para buscar medicamentos de hoje (atualizada para excluir os já tomados)
 router.get("/today/:user_id", async (req, res) => {
     const { user_id } = req.params;
 
@@ -269,25 +341,47 @@ router.get("/today/:user_id", async (req, res) => {
         const today = new Date();
         const daysOfWeek = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
         const currentDay = daysOfWeek[today.getDay()];
+        const todayDate = today.toISOString().split('T')[0]; // YYYY-MM-DD
 
         console.log(`=== BUSCANDO MEDICAMENTOS DE HOJE (${currentDay}) PARA USER_ID: ${user_id} ===`);
 
-        const { data, error } = await supabaseAdmin
+        // Buscar medicamentos do dia
+        const { data: medications, error: medError } = await supabaseAdmin
             .from("medication_reminders")
             .select("id, name, quantity, unit, time, description")
             .eq("user_id", user_id)
             .contains("days", [currentDay])
             .order("time", { ascending: true });
 
-        if (error) {
-            console.error("Erro ao buscar medicamentos de hoje:", error);
+        if (medError) {
+            console.error("Erro ao buscar medicamentos:", medError);
             return res.status(400).json({
                 success: false,
-                message: "Erro ao buscar medicamentos: " + error.message
+                message: "Erro ao buscar medicamentos: " + medError.message
             });
         }
 
-        console.log(`✅ Encontrados ${data?.length || 0} medicamentos para hoje`);
+        // Buscar quais medicamentos já foram tomados hoje
+        const { data: takenToday, error: takenError } = await supabaseAdmin
+            .from("medication_taken")
+            .select("medication_reminder_id")
+            .eq("user_id", user_id)
+            .eq("taken_date", todayDate);
+
+        if (takenError) {
+            console.error("Erro ao buscar medicamentos tomados:", takenError);
+            // Continuar mesmo com erro, apenas loggar
+        }
+
+        // IDs dos medicamentos já tomados hoje
+        const takenIds = new Set(takenToday?.map(t => t.medication_reminder_id) || []);
+
+        console.log("Medicamentos já tomados hoje:", Array.from(takenIds));
+
+        // Filtrar medicamentos que ainda não foram tomados
+        const pendingMedications = medications?.filter(med => !takenIds.has(med.id)) || [];
+
+        console.log(`✅ Encontrados ${pendingMedications.length} medicamentos pendentes para hoje`);
 
         // Função para formatar unidades
         const formatUnit = (quantity, unit) => {
@@ -303,7 +397,7 @@ router.get("/today/:user_id", async (req, res) => {
         };
 
         // Formatar os dados para o frontend
-        const formattedData = data?.map(med => ({
+        const formattedData = pendingMedications.map(med => ({
             id: med.id,
             name: med.name,
             quantity: med.quantity,
@@ -313,14 +407,16 @@ router.get("/today/:user_id", async (req, res) => {
             // Formatação para exibição
             display_name: `${med.name} ${med.quantity} ${formatUnit(med.quantity, med.unit)}`,
             display_time: `Tomar às ${med.time}`
-        })) || [];
+        }));
 
         return res.json({
             success: true,
             data: formattedData,
             total: formattedData.length,
             current_day: currentDay,
-            date: today.toISOString().split('T')[0] // YYYY-MM-DD
+            date: todayDate,
+            taken_count: takenIds.size,
+            total_scheduled: medications?.length || 0
         });
 
     } catch (err) {
@@ -349,40 +445,68 @@ router.get("/today/:user_id", async (req, res) => {
 //         const daysOfWeek = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 //         const currentDay = daysOfWeek[today.getDay()];
 
-//         console.log(`=== BUSCANDO LEMBRETES DE HOJE (${currentDay}) PARA USER_ID: ${user_id} ===`);
+//         console.log(`=== BUSCANDO MEDICAMENTOS DE HOJE (${currentDay}) PARA USER_ID: ${user_id} ===`);
 
 //         const { data, error } = await supabaseAdmin
 //             .from("medication_reminders")
-//             .select("*")
+//             .select("id, name, quantity, unit, time, description")
 //             .eq("user_id", user_id)
 //             .contains("days", [currentDay])
 //             .order("time", { ascending: true });
 
 //         if (error) {
-//             console.error("Erro ao buscar lembretes de hoje:", error);
+//             console.error("Erro ao buscar medicamentos de hoje:", error);
 //             return res.status(400).json({
 //                 success: false,
-//                 message: "Erro ao buscar lembretes: " + error.message
+//                 message: "Erro ao buscar medicamentos: " + error.message
 //             });
 //         }
 
-//         console.log(`✅ Encontrados ${data?.length || 0} lembretes para hoje`);
+//         console.log(`✅ Encontrados ${data?.length || 0} medicamentos para hoje`);
+
+//         // Função para formatar unidades
+//         const formatUnit = (quantity, unit) => {
+//             const unitMap = {
+//                 'mg': 'mg',
+//                 'ml': 'ml',
+//                 'comprimido': quantity > 1 ? 'comprimidos' : 'comprimido',
+//                 'capsula': quantity > 1 ? 'cápsulas' : 'cápsula',
+//                 'gota': quantity > 1 ? 'gotas' : 'gota',
+//                 'aplicacao': quantity > 1 ? 'aplicações' : 'aplicação'
+//             };
+//             return unitMap[unit.toLowerCase()] || unit;
+//         };
+
+//         // Formatar os dados para o frontend
+//         const formattedData = data?.map(med => ({
+//             id: med.id,
+//             name: med.name,
+//             quantity: med.quantity,
+//             unit: med.unit,
+//             time: med.time,
+//             description: med.description,
+//             // Formatação para exibição
+//             display_name: `${med.name} ${med.quantity} ${formatUnit(med.quantity, med.unit)}`,
+//             display_time: `Tomar às ${med.time}`
+//         })) || [];
 
 //         return res.json({
 //             success: true,
-//             data: data || [],
-//             total: data ? data.length : 0,
-//             current_day: currentDay
+//             data: formattedData,
+//             total: formattedData.length,
+//             current_day: currentDay,
+//             date: today.toISOString().split('T')[0] // YYYY-MM-DD
 //         });
 
 //     } catch (err) {
-//         console.error("Erro interno ao buscar lembretes de hoje:", err);
+//         console.error("Erro interno ao buscar medicamentos de hoje:", err);
 //         return res.status(500).json({
 //             success: false,
 //             message: "Erro interno do servidor"
 //         });
 //     }
 // });
+
 
 // Rota para atualizar lembrete
 router.put("/reminder/:id", async (req, res) => {
