@@ -128,6 +128,52 @@ Após salvar, os medicamentos cadastrados aparecem na **tela inicial**, com **no
   <img src="https://github.com/user-attachments/assets/fdcb0e40-6cbe-49ca-9572-b686b3c52564" alt="Tela de Adicionar Medicação" width="250px">
 </div>
 
+### 🩸 Tela de Registrar Glicemia  
+
+Essa tela foi desenvolvida para que o usuário **registre facilmente sua glicemia diária**, permitindo acompanhar e monitorar seus níveis ao longo do tempo.  
+
+O formulário contém:  
+- **Valor da Glicemia** (em mg/dL)  
+- **Data da medição**: pode ser registrada como **Hoje** ou selecionada manualmente em outra data  
+- **Campo de Observações**: para anotações adicionais, como horário da refeição, sintomas ou uso de insulina  
+
+Após clicar em **Salvar Registro**, os dados são armazenados no **Supabase** e automaticamente exibidos na **Tela Inicial** caso correspondam ao dia atual.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/9131b550-cfd1-41b3-b1f3-29fe1fb61ae9" alt="Tela de Registrar Glicemia" width="250px">
+</div>
+
+### 💓 Tela de Registrar Pressão Arterial  
+
+Essa tela foi desenvolvida para que o usuário **registre facilmente sua pressão arterial diária**, permitindo acompanhar e monitorar seus níveis ao longo do tempo.  
+
+O formulário contém:  
+- **Valor da Pressão Arterial** (em mmHg), no formato `sistólica/diastólica` (ex: 120/80)  
+- **Data da medição**: pode ser registrada como **Hoje** ou selecionada manualmente em outra data  
+- **Campo de Observações**: para anotações adicionais, como sintomas, horário da medição ou recomendações médicas  
+
+Após clicar em **Salvar Registro**, os dados são armazenados no **Supabase** e automaticamente exibidos na **Tela Inicial** caso correspondam ao dia atual.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7a3ef639-a9fc-4ee1-85e2-fbcbbd483efd" alt="Tela de Registrar Pressão Arterial" width="250px">
+</div>
+
+### 🤒 Tela de Registrar Sintomas  
+
+Essa tela foi desenvolvida para que o usuário **registre facilmente seus sintomas diários**, permitindo acompanhar seu estado de saúde ao longo do tempo.  
+
+O formulário contém:  
+- **Emoji de Emoção**: selecione como você está se sentindo, do mais triste 😫 ao mais feliz 😃  
+- **Descrição dos sintomas**: espaço para detalhar sintomas específicos, como dor de cabeça, febre ou cansaço  
+- **Data da medição**: pode ser registrada como **Hoje** ou selecionada manualmente em outra data  
+
+Após clicar em **Salvar Registro**, os dados são armazenados no **Supabase** e automaticamente exibidos na **Tela Inicial** caso correspondam ao dia atual.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6658eb54-3904-48a8-a4d6-2a7ade7383b3" alt="Tela de Registrar Sintomas" width="250px">
+</div>
+<img width="371" height="806" alt="image" src="" />
+
 
 
 ---
