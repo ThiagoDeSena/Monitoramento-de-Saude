@@ -172,9 +172,45 @@ Após clicar em **Salvar Registro**, os dados são armazenados no **Supabase** e
 <div align="center">
   <img src="https://github.com/user-attachments/assets/6658eb54-3904-48a8-a4d6-2a7ade7383b3" alt="Tela de Registrar Sintomas" width="250px">
 </div>
-<img width="371" height="806" alt="image" src="" />
+
+### 🗓️ Tela de Adicionar Lembrete de Consultas  
+
+Essa tela foi desenvolvida para que o usuário **registre facilmente suas consultas médicas**, permitindo organizar sua agenda e receber lembretes para não perder nenhum compromisso.  
+
+O formulário contém:  
+- **Tipo de consulta**: escolha entre várias especialidades médicas ou selecione "Outros"  
+- **Nome do(a) médico(a)** (opcional): para identificar o profissional responsável  
+- **Data e horário da consulta**: para registrar quando a consulta ocorrerá  
+- **Observações** (opcional): espaço para anotações adicionais, como exames a levar ou instruções médicas  
+
+Após clicar em **Salvar Consulta**, os dados são armazenados no **Supabase** e podem ser exibidos na **Tela Inicial** ou em uma lista de lembretes.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7b66f58b-caee-47e5-82f1-3cef2ed57f32" alt="Tela de Adicionar Lembrete de Consultas" width="250px">
+</div>
 
 
+### ❤️ Tela de Acompanhamento de Saúde  
+
+Essa tela foi desenvolvida para que o usuário **acompanhe a evolução dos seus sinais vitais**, como glicemia e pressão arterial, ao longo do tempo, permitindo identificar tendências e receber alertas de saúde.  
+
+A tela contém:  
+- **Filtros de período**: selecione entre 7 dias, 1 mês, 3 meses, 6 meses, 1 ano ou todos os registros  
+- **Gráfico interativo**: exibe a evolução dos registros de glicose e pressão arterial  
+- **Resumo da semana/mês**: mostra médias, valores máximos e mínimos de glicose e pressão arterial  
+- **Alertas de saúde**: mensagens de atenção ou risco baseado nos registros  
+- **Últimos 5 registros**: lista detalhada com datas e valores de glicose e pressão arterial  
+- **Botão Exportar Relatório**: gera um relatório em **PDF ou HTML** que pode ser compartilhado via **WhatsApp, email ou outros canais disponíveis no celular**. O relatório será aprimorado com **IA**, fornecendo:  
+  - Previsões de tendências para a próxima semana  
+  - Dicas personalizadas de saúde, alimentação e hábitos para melhorar os sinais vitais  
+  - Recomendações do que evitar para manter a saúde em equilíbrio  
+
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; margin-top: 10px; margin-bottom: 10px;" align="center">
+  <img src="https://github.com/user-attachments/assets/792780c0-ed36-4aca-a6e3-1df917dc6662" width="150px" alt="Tela 1" />
+  <img src="https://github.com/user-attachments/assets/76a72b33-0a42-4032-b155-ae6580ba775f" width="150px" alt="Tela 2" />
+  <img src="https://github.com/user-attachments/assets/3af8085f-c112-4786-9af6-a5a36259a8fd" width="150px" alt="Tela 3" />
+  <img src="https://github.com/user-attachments/assets/36354fe4-9c38-4631-8064-f810b29da597" width="150px" alt="Tela 4" />
+</div>
 
 ---
 
