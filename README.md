@@ -1,49 +1,69 @@
-# 📁 Estrutura do Diretório Frontend
+# 📱 VivaBem – Monitoramento de Saúde
 
-Este repositório segue uma estrutura organizada para o desenvolvimento do **frontend** da aplicação. Cada tela do sistema possui sua própria pasta, onde são armazenados **arquivos separados para HTML, CSS e JavaScript**.
+O **VivaBem** é um aplicativo móvel voltado para pacientes crônicos, em especial **idosos**, que auxilia no **acompanhamento da saúde diária**.  
+Ele permite o registro de **sinais vitais** (como glicemia e pressão arterial), **sintomas**, **medicamentos** e **consultas**, além de emitir **alertas e notificações** quando valores saem do normal.  
 
----
+A proposta do projeto é **facilitar o cuidado contínuo**, ajudando pacientes e familiares a manterem o controle de informações essenciais e fornecendo dados organizados que podem apoiar a **tomada de decisão médica**.  
 
-## 📂 Diretórios e Arquivos
-
-<img width="513" height="288" alt="image" src="https://github.com/user-attachments/assets/f3470e51-cd74-41a5-9c40-769b9f6ca377" />
-
+> 🚀 O app também conta com a implementação de **Inteligência Artificial**, que analisa os registros e fornece **recomendações personalizadas**, resumos em linguagem natural e relatórios de fácil visualização.
 
 ---
 
-## 🧱 Organização por tela
+## 🛠️ Tecnologias Utilizadas
 
-Cada funcionalidade ou página da aplicação deve ter sua própria **pasta dedicada**. Dentro de cada pasta, os seguintes arquivos devem ser criados:
-
-- `arquivo.html`: Contém apenas a estrutura HTML da tela.
-- `style.css`: Contém os estilos (CSS) **exclusivos** da tela.
-- `script.js` *(opcional)*: Caso haja lógica em JavaScript para a tela, o arquivo deve ser criado **separadamente**.
-
----
-
-## ❌ Regras de Organização
-
-- **Não é permitido** misturar HTML, CSS e JavaScript no mesmo arquivo.
-- Cada tipo de código deve estar **separado em seu respectivo arquivo** dentro da pasta da tela correspondente.
-- A separação por pastas visa facilitar a manutenção, escalabilidade e colaboração no projeto.
+- **Frontend:** HTML, CSS, JavaScript  
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)  
+- **Backend:** Node.js + Express  
+- **Banco de Dados:** [Supabase](https://supabase.com/)  
+- **Auxílio em Design:** Ferramentas de IA (Stitch)  
 
 ---
 
-## ✅ Exemplo de uma nova tela
+## 📲 Funcionalidades
 
-Caso seja criada uma nova tela, por exemplo "perfil", a estrutura deve seguir o mesmo padrão:
-
-<img width="346" height="191" alt="image" src="https://github.com/user-attachments/assets/4ad7fc04-6386-41e9-8dc9-779f02e046ed" />
-
-
----
-
-## 📌 Boas práticas
-
-- Utilize nomes de arquivos e pastas descritivos.
-- Evite código duplicado entre telas.
-- Caso tenha estilos ou scripts compartilhados entre telas, crie uma pasta `assets/` para centralizá-los.
+- Registro diário de **sinais vitais** (pressão arterial, glicemia).  
+- Cadastro de **sintomas** e acompanhamento histórico.  
+- **Lembretes** de medicamentos, consultas e exames.  
+- **Alertas inteligentes** quando valores estiverem fora do normal.  
+- Geração de **gráficos** para acompanhamento da evolução da saúde.  
+- Integração com **IA** para recomendações, resumos e relatórios.  
 
 ---
 
-👨‍💻 **Colabore com organização!** Esse padrão foi definido para manter o projeto limpo e de fácil entendimento por todos os membros da equipe.
+## 📸 Telas do Projeto
+
+*(Aqui vamos adicionar as telas que você enviar, cada uma acompanhada de uma breve descrição de sua funcionalidade.)*
+
+### 🔐 Tela de Login
+
+A tela inicial do **VivaBem** é o ponto de entrada para o usuário acessar o aplicativo.  
+Nela, é possível entrar com **e-mail e senha previamente cadastrados**.  
+Também há a opção de **login com Google** *(funcionalidade ainda não implementada)*.  
+
+Além disso, a tela oferece alternativas para:  
+- **Cadastrar uma nova conta** (para novos usuários).  
+- **Entrar como cuidador ou profissional** de saúde, com acesso apenas para monitorar dados de pacientes *(não implementado ainda)*.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b9e9b46b-ab9a-4210-8df7-a4af5383c111" alt="Tela de Login" width="250px">
+</div>
+
+---
+
+## 👥 Equipe
+
+- **Thiago** – Fullstack Developer (layout, frontend, backend e banco de dados Supabase).  
+- **Marlon** – Frontend Developer e Gestão de Projetos (telas do frontend, apresentações em pitch).  
+- **Danilo** – Gestão de Projetos (organização e apoio no desenvolvimento).  
+
+---
+
+## 📌 Status do Projeto
+
+🔨 Em desenvolvimento – MVP funcional já com cadastro de pacientes, registros de sinais vitais, sintomas, medicamentos e sistema de alertas.  
+
+---
+
+## 📜 Licença
+
+Este projeto foi desenvolvido para fins acadêmicos e educacionais.  
