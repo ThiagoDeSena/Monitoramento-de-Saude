@@ -1,5 +1,15 @@
 # 📱 VivaBem – Monitoramento de Saúde
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/61d3c5fb-9243-41dd-9539-9aa08ce3846a" alt="Tela Registro de Consultas 1" width="150px">
+  <img src="https://github.com/user-attachments/assets/881d21b5-ab61-40cc-8b1b-840bbb1506d0" alt="Tela Registro de Consultas 2" width="150px">
+  <img src="https://github.com/user-attachments/assets/2a0cb668-e4b9-4fd9-b4ba-40b4a690b9f8" alt="Tela Registro de Consultas 3" width="150px">
+  <img src="https://github.com/user-attachments/assets/c64a2b38-8f01-4467-99f5-33ca875abe32" alt="Tela Registro de Consultas 4" width="150px">
+  <img src="https://github.com/user-attachments/assets/19625e58-3f91-4d5a-9fed-c0fc04feefd4" alt="Tela Registro de Consultas 5" width="150px">
+  <img src="https://github.com/user-attachments/assets/5bb15356-5ffa-46d7-9dfa-8cadbe3a4346" alt="Tela Registro de Consultas 6" width="150px">
+</div>
+
+
 O **VivaBem** é um aplicativo móvel voltado para pacientes crônicos, em especial **idosos**, que auxilia no **acompanhamento da saúde diária**.  
 Ele permite o registro de **sinais vitais** (como glicemia e pressão arterial), **sintomas**, **medicamentos** e **consultas**, além de emitir **alertas e notificações** quando valores saem do normal.  
 
@@ -211,6 +221,24 @@ A tela contém:
   <img src="https://github.com/user-attachments/assets/3af8085f-c112-4786-9af6-a5a36259a8fd" width="150px" alt="Tela 3" />
   <img src="https://github.com/user-attachments/assets/36354fe4-9c38-4631-8064-f810b29da597" width="150px" alt="Tela 4" />
 </div>
+
+### 📅 Tela de Registro de Consultas  
+
+Essa tela foi desenvolvida para que o usuário **acompanhe e organize suas consultas e medicamentos de forma prática e intuitiva**.  
+
+Nela, o usuário pode:  
+- Visualizar as **consultas agendadas** e os **medicamentos programados**, separados por dia (📍 Hoje, 📍 Amanhã, etc).  
+- Conferir **horário, profissional e local** da consulta.  
+- **Editar, confirmar ou excluir** registros facilmente através dos botões de ação.  
+- Marcar consultas ou medicamentos como **realizados**.  
+- Adicionar novos registros utilizando o **botão flutuante “+”** no canto inferior.  
+
+O objetivo dessa tela é fornecer uma **visão clara e organizada da rotina médica**, ajudando o usuário a **não perder compromissos importantes** relacionados à sua saúde.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/ab2b8477-90f0-41bf-9fd8-84a387789ab9" alt="Tela Registro de Consultas 1" width="250px">
+</div>
+
 
 ---
 
